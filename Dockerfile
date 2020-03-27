@@ -1,0 +1,23 @@
+#
+# NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
+#
+# PLEASE DO NOT EDIT IT DIRECTLY.
+#
+
+FROM python:3.7-alpine
+
+
+# ensure local python is preferred over distribution python
+ENV PYTHONUNBUFFERED 1
+
+# RUN set -xe \&& sudo apt-get update \&& sudo apt-get install python-pip
+# RUN pip install --upgrade pip
+COPY ./requirements.txt /requirements.txt
+RUN pip3 install -r /requirements.txt
+
+RUN mkdir /app
+WORKDIR /app
+COPY ./app /app
+
+RUN adduser -D user 
+USER user
